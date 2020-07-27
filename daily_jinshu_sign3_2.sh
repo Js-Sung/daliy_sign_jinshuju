@@ -1,6 +1,10 @@
 #!/bin/bash
 
-. rand.sh
+# from https://www.jb51.net/article/59949.htm
+DIR="$( cd "$( dirname "$0"  )" && pwd  )"
+cd $DIR
+
+. ./rand.sh
 
 declare -i retval=0
 
