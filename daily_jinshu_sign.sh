@@ -51,31 +51,31 @@ declare -i retval=0
 #非全选项只支持选在学校周边常住地
 
 
-#学号  姓名  校区:清水河{Q}or沙河{S}or宜宾{[^QS]}  校外住宿地址  地理位置
+#学号  姓名  校区:清水河{Q}or沙河{S}or宜宾{[^QS]}  全日制宿舍/非全校外住宿地址  地理位置  手机
 
 : 
 data=(
-"201821010999" "张三" "Q" "" "`genField_21 103.930$(rand 400 900),30.752$(rand 85 311)`"
-"201822010998" "李四" "Yibin" "" "{"latitude":28.6981919,"longitude":104.549108,"address":"四川省宜宾市叙州区柏溪街道南兴大道29号宜宾市叙州区中医医院"}"
-"201852010799" "王五" "Q" "龙湖xxx栋xxx号" "`genField_21`"
+"201821010999" "张三" "Q" "QS99-909" "`genField_21 103.930$(rand 400 900),30.752$(rand 85 311)`" "12345678901"
+"201822010998" "李四" "Yibin" "QS99-909" "{"latitude":28.6981919,"longitude":104.549108,"address":"四川省宜宾市叙州区柏溪街道南兴大道29号宜宾市叙州区中医医院"}" "12345678901"
+"201852010799" "王五" "Q" "龙湖xxx栋xxx号" "`genField_21`" "12345678901"
 )
 
 
 len=${#data[@]}
 #echo len=$len
 
-for(( i=0; i<len; i+=5 ))
+for(( i=0; i<len; i+=6 ))
 do
 
 
+f29=${data[i+5]}
 f5=${data[i]}
-[ "${f5:4:1}" = "5" ] && f23="r5De" || f23="Povx"
+[ "${f5:4:1}" = "5" ] && { f23="r5De"; f31=""; f11=${data[i+3]}; } || { f23="Povx"; f31=${data[i+3]}; f11=""; }
 f6=${data[i+1]}
 f21=${data[i+4]}
 f9="Zda4"
 f24="FRjZ"
 f27="CBf4"
-f11=${data[i+3]}
 
 if [[ ${data[i+2]} == "Q" ]]; then
 	f7="FRjZ"
@@ -85,9 +85,10 @@ else
 	f7="WeQk"
 fi
 
-echo "id: ${f5}, name: ${f6}, isfullTime: $f23, campus: $f7, external addr: $f11, position: ${f21}"
+echo "id: ${f5}, name: ${f6}, isfullTime: $f23, campus: $f7, external addr: $f11, position: ${f21}, dorm: $f31, phone: $f29"
 
-curl -s -H 'Host: jinshuju.net' -H "Cookie: jsj_uid=b1dd3f7a-0ebe-41b1-83ab-d8cf4b7639b8; referer_url=https%3A%2F%2Fjinshuju.net%2Ff%2F2ix4UC;  start_filling_time_9wGVFn=$[`date +%s`-2]" -H 'origin: https://jinshuju.net' -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36' -H 'content-type: application/json;charset=UTF-8' -H 'accept: */*' -H 'sec-fetch-dest: empty' -H 'dnt: 1' -H 'sec-fetch-site: same-origin' -H 'sec-fetch-mode: cors' -H 'referer: https://jinshuju.net/f/9wGVFn' -H 'accept-language: zh-CN,zh;q=0.9,en;q=0.8' --data-binary "{\"operationName\":\"CreatePublishedFormEntry\",\"variables\":{\"input\":{\"formId\":\"9wGVFn\",\"entryAttributes\":{\"field_6\":\"${f6}\",\"field_5\":\"${f5}\",\"field_8\":\"$f8\",\"field_7\":\"$f7\",\"field_11\":\"$f11\",\"field_9\":\"$f9\",\"field_24\":\"$f24\",\"field_23\":\"$f23\",\"field_27\":\"$f27\",\"field_2\":\"\",\"field_10\":\"\",\"field_3\":\"\",\"field_21\":${f21}},\"captchaData\":null,\"weixinAccessToken\":null,\"xFieldWeixinOpenid\":null,\"weixinInfo\":null,\"prefilledParams\":\"\",\"embedded\":false,\"backgroundImage\":false,\"formMargin\":false,\"fillingDuration\":$(rand 5 100)}},\"extensions\":{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"4cd6a9aef2820b2c3215f6ddfa87093869461f76f3f2016738f4307268a7df98\"}}}" --compressed 'https://jinshuju.net/graphql/f/9wGVFn' | grep "\"errors\":null" > /dev/null 2>&1
+curl -s -H 'Host: jinshuju.net' -H "Cookie: jsj_uid=b1dd3f7a-0ebe-41b1-83ab-d8cf4b7639b8; referer_url=https%3A%2F%2Fjinshuju.net%2Ff%2F2ix4UC;  start_filling_time_9wGVFn=$[`date +%s`-2]" -H 'origin: https://jinshuju.net' -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36' -H 'content-type: application/json;charset=UTF-8' -H 'accept: */*' -H 'sec-fetch-dest: empty' -H 'dnt: 1' -H 'sec-fetch-site: same-origin' -H 'sec-fetch-mode: cors' -H 'referer: https://jinshuju.net/f/9wGVFn' -H 'accept-language: zh-CN,zh;q=0.9,en;q=0.8' --data-binary "{\"operationName\":\"CreatePublishedFormEntry\",\"variables\":{\"input\":{\"formId\":\"9wGVFn\",\"entryAttributes\":{\"field_6\":\"${f6}\",\"field_5\":\"${f5}\",\"field_8\":\"$f8\",\"field_7\":\"$f7\",\"field_29\":\"$f29\",\"field_31\":\"$f31\",\"field_11\":\"$f11\",\"field_9\":\"$f9\",\"field_24\":\"$f24\",\"field_23\":\"$f23\",\"field_27\":\"$f27\",\"field_2\":\"\",\"field_10\":\"\",\"field_3\":\"\",\"field_21\":${f21}},\"captchaData\":null,\"weixinAccessToken\":null,\"xFieldWeixinOpenid\":null,\"weixinInfo\":null,\"prefilledParams\":\"\",\"embedded\":false,\"backgroundImage\":false,\"formMargin\":false,\"fillingDuration\":$(rand 5 100)}},\"extensions\":{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"4cd6a9aef2820b2c3215f6ddfa87093869461f76f3f2016738f4307268a7df98\"}}}" --compressed 'https://jinshuju.net/graphql/f/9wGVFn' | grep "\"errors\":null" > /dev/null 2>&1
+
 
 
 if [ $? -eq 0 ]
