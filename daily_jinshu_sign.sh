@@ -93,9 +93,9 @@ curl -s -H 'Host: jinshuju.net' -H "Cookie: jsj_uid=b1dd3f7a-0ebe-41b1-83ab-d8cf
 
 if [ $? -eq 0 ]
 then
-echo "`date +"%Y-%m-%d %X"`: ${data[i+1]} signed ok" >> $LOGFILE
+echo "`date +"%Y-%m-%d %X"`: ${f6} signed ok" >> $LOGFILE
 else
-echo "`date +"%Y-%m-%d %X"`: ${data[i+1]} failed to sign" >> $LOGFILE
+echo "`date +"%Y-%m-%d %X"`: ${f6} failed to sign" >> $LOGFILE
 let retval+=1
 fi
 
