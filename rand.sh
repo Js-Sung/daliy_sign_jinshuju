@@ -12,7 +12,7 @@ function rand(){
 #postion="103.9$(rand 25609 37497),30.7$(rand 45502 53542)"
 #echo random xy: $postion
 
-function genField_21(){
+function genAddr(){
 
 retval=0
 postion=$1
